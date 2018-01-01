@@ -1,0 +1,25 @@
+
+deduction(puzzle):
+	global possibilities, groups
+	loop through each group
+		make a new dictionaty
+		loop through each location in the group
+			if that location is "."
+				loop through each of the possibilites for that location
+					if possibility is key in dict
+						make dictionary value -1
+					else
+						make dictionary value the location
+		loop through the dictionary
+			if the value is not -1
+				upadate the possibilities dictioanry
+				return puzzle with new correct number in the location
+	return puzzle
+
+
+
+
+
+
+bruteForce(puzzle):
+	

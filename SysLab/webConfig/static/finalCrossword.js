@@ -1,0 +1,257 @@
+var size = 15;
+var puzzle = [1, 2, 3, '*', 4, 5, 6, '*', 7, 8, 9, '*', 10, 11, 12, 13, '_', '_', '*', 14, '_', '_', '*', 15, '_', '_', '*', 16, '_', '_', 17, '_', '_', '*', 18, '_', '_', '*', 19, '_', '_', 20, '_', '_', '_', 21, '_', '_', 22, '_', '_', '_', 23, '_', '_', '_', '_', '_', '*', '*', 24, '_', '_', '_', '*', 25, '_', '_', '_', '_', '*', 26, '_', 27, 28, 29, '_', '_', '_', 30, '*', 31, '_', '_', '_', 32, '_', '_', '_', '_', 33, '_', '_', '_', '_', '*', '*', 34, '_', '_', '_', '*', 35, '_', '_', '*', '*', '*', 36, '_', 37, 38, '_', '_', '_', '_', 39, '*', '*', '*', 40, 41, 42, '*', 43, '_', '_', '_', '*', '*', 44, '_', 45, 46, 47, 48, '_', '_', 49, '_', '_', '_', '_', 50, '*', 51, '_', '_', '_', '_', 52, '_', '_', '_', '*', 53, '_', '_', '_', 54, '*', 55, '_', '_', '_', '*', '*', 56, '_', 57, '_', '_', '_', '_', '_', 58, '_', '_', '_', '_', 59, 60, '_', '_', '_', '_', '_', '*', 61, '_', '_', '*', 62, '_', '_', 63, '_', '_', '*', 64, '_', '_', '*', 65, '_', '_', '*', 66, '_', '_', 67, '_', '_', '*', 68, '_', '_', '*', 69, '_', '_', '*', 70, '_', '_']
+var across = true
+var acrossDict = {1: [0, 1, 2], 4: [4, 5, 6], 7: [8, 9, 10], 10: [12, 13, 14], 13: [15, 16, 17], 14: [19, 20, 21], 15: [23, 24, 25], 16: [27, 28, 29], 17: [30, 31, 32], 18: [34, 35, 36], 19: [38, 39, 40, 41, 42, 43, 44], 21: [45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57], 24: [60, 61, 62, 63], 25: [65, 66, 67, 68, 69], 26: [71, 72, 73, 74], 29: [75, 76, 77, 78, 79], 31: [81, 82, 83, 84, 85, 86, 87, 88, 89], 33: [90, 91, 92, 93, 94], 34: [97, 98, 99, 100], 35: [102, 103, 104], 36: [108, 109, 110, 111, 112, 113, 114, 115, 116], 40: [120, 121, 122], 43: [124, 125, 126, 127], 44: [130, 131, 132, 133, 134], 48: [135, 136, 137, 138, 139, 140, 141, 142, 143], 51: [145, 146, 147, 148, 149], 52: [150, 151, 152, 153], 53: [155, 156, 157, 158, 159], 55: [161, 162, 163, 164], 56: [167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179], 59: [180, 181, 182, 183, 184, 185, 186], 61: [188, 189, 190], 62: [192, 193, 194], 63: [195, 196, 197], 64: [199, 200, 201], 65: [203, 204, 205], 66: [207, 208, 209], 67: [210, 211, 212], 68: [214, 215, 216], 69: [218, 219, 220], 70: [222, 223, 224]};
+var downDict = {1: [0, 15, 30, 45, 60, 75, 90], 2: [1, 16, 31, 46, 61, 76, 91], 3: [2, 17, 32, 47, 62, 77, 92], 4: [4, 19, 34, 49], 5: [5, 20, 35, 50, 65], 6: [6, 21, 36, 51, 66, 81], 7: [8, 23, 38, 53, 68, 83, 98, 113], 8: [9, 24, 39, 54, 69, 84, 99, 114], 9: [10, 25, 40, 55], 10: [12, 27, 42, 57, 72, 87, 102], 11: [13, 28, 43], 12: [14, 29, 44], 20: [41, 56, 71, 86], 22: [48, 63, 78, 93, 108], 23: [52, 67, 82, 97, 112, 127, 142, 157, 172], 27: [73, 88, 103], 28: [74, 89, 104], 30: [79, 94, 109, 124, 139], 32: [85, 100, 115, 130, 145], 37: [110, 125, 140, 155, 170, 185, 200, 215], 38: [111, 126, 141, 156, 171, 186, 201, 216], 39: [116, 131, 146, 161, 176], 40: [120, 135, 150], 41: [121, 136, 151], 42: [122, 137, 152, 167, 182, 197, 212], 45: [132, 147, 162, 177, 192, 207, 222], 46: [133, 148, 163, 178, 193, 208, 223], 47: [134, 149, 164, 179, 194, 209, 224], 49: [138, 153, 168, 183], 50: [143, 158, 173, 188, 203, 218], 54: [159, 174, 189, 204, 219], 57: [169, 184, 199, 214], 58: [175, 190, 205, 220], 59: [180, 195, 210], 60: [181, 196, 211]};
+var inverseAcrossDict = {0: 1, 1: 1, 2: 1, 4: 4, 5: 4, 6: 4, 8: 7, 9: 7, 10: 7, 12: 10, 13: 10, 14: 10, 15: 13, 16: 13, 17: 13, 19: 14, 20: 14, 21: 14, 23: 15, 24: 15, 25: 15, 27: 16, 28: 16, 29: 16, 30: 17, 31: 17, 32: 17, 34: 18, 35: 18, 36: 18, 38: 19, 39: 19, 40: 19, 41: 19, 42: 19, 43: 19, 44: 19, 45: 21, 46: 21, 47: 21, 48: 21, 49: 21, 50: 21, 51: 21, 52: 21, 53: 21, 54: 21, 55: 21, 56: 21, 57: 21, 60: 24, 61: 24, 62: 24, 63: 24, 65: 25, 66: 25, 67: 25, 68: 25, 69: 25, 71: 26, 72: 26, 73: 26, 74: 26, 75: 29, 76: 29, 77: 29, 78: 29, 79: 29, 81: 31, 82: 31, 83: 31, 84: 31, 85: 31, 86: 31, 87: 31, 88: 31, 89: 31, 90: 33, 91: 33, 92: 33, 93: 33, 94: 33, 97: 34, 98: 34, 99: 34, 100: 34, 102: 35, 103: 35, 104: 35, 108: 36, 109: 36, 110: 36, 111: 36, 112: 36, 113: 36, 114: 36, 115: 36, 116: 36, 120: 40, 121: 40, 122: 40, 124: 43, 125: 43, 126: 43, 127: 43, 130: 44, 131: 44, 132: 44, 133: 44, 134: 44, 135: 48, 136: 48, 137: 48, 138: 48, 139: 48, 140: 48, 141: 48, 142: 48, 143: 48, 145: 51, 146: 51, 147: 51, 148: 51, 149: 51, 150: 52, 151: 52, 152: 52, 153: 52, 155: 53, 156: 53, 157: 53, 158: 53, 159: 53, 161: 55, 162: 55, 163: 55, 164: 55, 167: 56, 168: 56, 169: 56, 170: 56, 171: 56, 172: 56, 173: 56, 174: 56, 175: 56, 176: 56, 177: 56, 178: 56, 179: 56, 180: 59, 181: 59, 182: 59, 183: 59, 184: 59, 185: 59, 186: 59, 188: 61, 189: 61, 190: 61, 192: 62, 193: 62, 194: 62, 195: 63, 196: 63, 197: 63, 199: 64, 200: 64, 201: 64, 203: 65, 204: 65, 205: 65, 207: 66, 208: 66, 209: 66, 210: 67, 211: 67, 212: 67, 214: 68, 215: 68, 216: 68, 218: 69, 219: 69, 220: 69, 222: 70, 223: 70, 224: 70};
+var inverseDownDict = {0: 1, 15: 1, 30: 1, 45: 1, 60: 1, 75: 1, 90: 1, 1: 2, 16: 2, 31: 2, 46: 2, 61: 2, 76: 2, 91: 2, 2: 3, 17: 3, 32: 3, 47: 3, 62: 3, 77: 3, 92: 3, 4: 4, 19: 4, 34: 4, 49: 4, 5: 5, 20: 5, 35: 5, 50: 5, 65: 5, 6: 6, 21: 6, 36: 6, 51: 6, 66: 6, 81: 6, 8: 7, 23: 7, 38: 7, 53: 7, 68: 7, 83: 7, 98: 7, 113: 7, 9: 8, 24: 8, 39: 8, 54: 8, 69: 8, 84: 8, 99: 8, 114: 8, 10: 9, 25: 9, 40: 9, 55: 9, 12: 10, 27: 10, 42: 10, 57: 10, 72: 10, 87: 10, 102: 10, 13: 11, 28: 11, 43: 11, 14: 12, 29: 12, 44: 12, 41: 20, 56: 20, 71: 20, 86: 20, 48: 22, 63: 22, 78: 22, 93: 22, 108: 22, 52: 23, 67: 23, 82: 23, 97: 23, 112: 23, 127: 23, 142: 23, 157: 23, 172: 23, 73: 27, 88: 27, 103: 27, 74: 28, 89: 28, 104: 28, 79: 30, 94: 30, 109: 30, 124: 30, 139: 30, 85: 32, 100: 32, 115: 32, 130: 32, 145: 32, 110: 37, 125: 37, 140: 37, 155: 37, 170: 37, 185: 37, 200: 37, 215: 37, 111: 38, 126: 38, 141: 38, 156: 38, 171: 38, 186: 38, 201: 38, 216: 38, 116: 39, 131: 39, 146: 39, 161: 39, 176: 39, 120: 40, 135: 40, 150: 40, 121: 41, 136: 41, 151: 41, 122: 42, 137: 42, 152: 42, 167: 42, 182: 42, 197: 42, 212: 42, 132: 45, 147: 45, 162: 45, 177: 45, 192: 45, 207: 45, 222: 45, 133: 46, 148: 46, 163: 46, 178: 46, 193: 46, 208: 46, 223: 46, 134: 47, 149: 47, 164: 47, 179: 47, 194: 47, 209: 47, 224: 47, 138: 49, 153: 49, 168: 49, 183: 49, 143: 50, 158: 50, 173: 50, 188: 50, 203: 50, 218: 50, 159: 54, 174: 54, 189: 54, 204: 54, 219: 54, 169: 57, 184: 57, 199: 57, 214: 57, 175: 58, 190: 58, 205: 58, 220: 58, 180: 59, 195: 59, 210: 59, 181: 60, 196: 60, 211: 60};
+var acrossClueDict = {1: 'Come out on top ', 4: 'Monogram of "The Magic Flute" composer ', 7: "Howard Hughes' studio ", 10: "Newtons' dried fruit ", 13: 'Santa _ winds (California weather phenomenon) ', 14: "Samurai's sash ", 15: 'Agcy. spawned by the Manhattan Project ', 16: 'Alley _ (spectacular basketball play) ', 17: 'Baseball southpaw: Abbr. ', 18: 'Casting requirement? ', 19: 'Alternately ', 21: '"Big pond" with no thermocline ', 24: '"East of Eden" director Kazan ', 25: 'Bizet opera priestess ', 26: 'Lindy rig, for example ', 29: 'Yiddish busybody ', 31: 'Aft ', 33: "50's Ford ﬂop ", 34: 'NYC racetrack informally  ©Mayll,2012  ', 35: 'Raven-ous monogram? 67. Catch catcher  ', 36: '"Loon-atic" state  ', 68: 'Explosive inits.  ', 40: 'Word after good or bad 69. Rapper Dr. _  ', 43: 'Anchor  ', 44: 'Cleans up, in a way  ', 48: 'Some fedoras  ', 51: 'Drug companythat manufactures Valium  ', 52: 'When said three times, a WW. II ﬁlm  ', 53: 'General _ chicken (Var )  ', 55: 'Tantalizer on a hook  ', 56: "Annual Mother's Day weekend event in 36- Across that is held at venues such as 21- Across  ", 59: 'Altar ego?  ', 61: 'Clandestine nautical ', 62: 'F.D.R. plan  ', 63: "Pierre's here  ", 64: '_ gratia artis  ', 65: 'Common deciduous tree  ', 66: 'Catch  ', 70: 'Sweet ending  ', 67: '', 69: ''};
+var downClueDict = {1: 'Top game of the 36- Across 56-Across at ', 2: 'What Bill Clinton claimed to have never done  ', 3: 'They can be used to wrap silverware  ', 4: 'Nightcrawler, e.g.  ', 5: 'Extremely hot  ', 6: '\'Wind Beneath My Wings" srnger Bette  ', 7: 'French Renaissance man Francois, who used the pseudonym "Alcofribas Nasier," an anagram of his full name  ', 8: '"Divrng capital of the world"  ', 9: 'Eight: Comb form  ', 10: 'Vlnthout a doubt  ', 11: "It's not free of charge  ", 12: 'Garmin gizmo  ', 20: 'Sch. with rec. ctr. named after its legendary coach John Wooden  ', 22: '"_ while they\'re hot"  ', 23: "Nancy who was the first woman to play in a men's professional basketball league  ", 27: 'Nutritional std.  ', 28: 'Clairvoyance‘ e g.  ', 30: '"Out on _" (Shirley MacLaine bestseller)  ', 32: 'Spring flower?  ', 37: 'With 58-Down bigger cousin of 1-Down  ', 38: 'Registering the most on the applause-o- meter  ', 39: 'Building block in Phoenix  ', 40: 'Winter hrs in 36- Across  ', 41: "Lennon's lady  ", 42: 'Dessert in a tall glass  ', 45: 'First-person explanation for missing out on 56-Across (3 wds.)  ', 46: 'They take things the wrong way  ', 47: 'Contracted cost  ', 49: 'Suffering partner?  ', 50: '"Mmmm, deliciousl" (referring to 1-Down, once cooked)  ', 54: 'Depth finder  ', 57: 'Ella Fitzgerald specialty  ', 58: 'See 37-Down  ', 59: 'Stabilizer  ', 60: 'Surface of 21-Across for most of winter'};
+var exampleOneAcrossSolutions = ['WIN', 'ACE', 'END', 'TOY', 'POP', 'TAB', 'ONO', 'BRA', 'LID', 'GEL'];
+
+var lastFocus;
+var currentFocus;
+
+function createCrossword(){
+	addClues();
+	for (i=0; i<size*size; i++){
+		var box = document.createElement('div');
+		box.id = i.toString();
+		box.className = "boxDiv";
+		document.getElementById("gridDiv").appendChild(box);
+		if (puzzle[i]!='*'){
+			if(puzzle[i]!='_'){
+				var para = document.createElement("content");
+				var node = document.createTextNode(puzzle[i].toString());
+				para.appendChild(node);
+				para.className = "numbered";
+				document.getElementById(i).appendChild(para);
+			}
+			var textBox = document.createElement('input');
+			textBox.className = "textChar";
+			textBox.id = "T" + i.toString();
+			textBox.setAttribute('maxlength',1);
+			$(textBox).focus(function() {
+				currentFocus = this;
+			   	$(this).css('backgroundColor','#FFFF33');
+			   	$(this).select();
+			   	if(across==true){
+			   		var index = parseInt(document.activeElement.id.substring(1));
+			   		console.log(acrossDict[inverseAcrossDict[index]].length);
+			   		console.log(acrossClueDict[inverseAcrossDict[index]])
+			   		sameWord = acrossDict[inverseAcrossDict[index]];
+			   		for (i=0; i<(sameWord.length); i++){
+			   			if (sameWord[i]!=index){
+			   				document.getElementById("T"+sameWord[i]).style.backgroundColor = '#FFFFCC';
+			   			}
+			   		}
+			   		elements = document.getElementsByClassName("clueButton");
+				    for (var i = 0; i < elements.length; i++) {
+				        elements[i].style.backgroundColor="white";
+				    }
+			   		document.getElementById('aclue'+inverseAcrossDict[index]).style.backgroundColor = '#FFFFCC';
+			   		document.getElementById("clueEditor").value = acrossClueDict[inverseAcrossDict[index]];
+			   		$('#solutions').empty();
+			   	}
+			   	else{
+			   		var index = parseInt(document.activeElement.id.substring(1));
+			   		console.log(downDict[inverseDownDict[index]].length);
+			   		console.log(downClueDict[inverseDownDict[index]])
+			   		sameWord = downDict[inverseDownDict[index]];
+			   		for (i=0; i<(sameWord.length); i++){
+			   			if (sameWord[i]!=index){
+			   				document.getElementById("T"+sameWord[i]).style.backgroundColor = '#FFFFCC';
+			   			}
+			   		}
+			   		elements = document.getElementsByClassName("clueButton");
+				    for (var i = 0; i < elements.length; i++) {
+				        elements[i].style.backgroundColor="white";
+				    }
+			   		document.getElementById('dclue'+inverseDownDict[index]).style.backgroundColor = '#FFFFCC';
+			   		document.getElementById("clueEditor").value = downClueDict[inverseDownDict[index]];
+			   		$('#solutions').empty();
+			   	}
+			});
+			$(textBox).blur(function() {
+			   $('.textChar').css('backgroundColor','white');
+			   lastFocus=this;
+			});
+			$(document).on('input', 'input:text', function() {
+				if(across==true){
+					moveRight(this);
+				}
+				else{
+					moveDown(this);
+				}
+			});
+			document.getElementById(i).appendChild(textBox);
+		}
+		else{
+			box.className = "boxDiv filled";
+		}
+	}
+	document.getElementById("T0").focus();
+	var widthHeight = (100/size);
+	$('.boxDiv').height(widthHeight+"%");
+	$('.boxDiv').width(widthHeight+"%");
+}
+
+function addClues() {
+	var acrossSection = document.getElementById("acrossList");
+	for (var key in acrossClueDict){
+		var clue = acrossClueDict[key];
+		var button = document.createElement("button");
+		button.id = 'aclue'+key;
+		button.innerHTML = key + ". " + clue;
+		button.className = "clueButton";
+		button.onclick = function clueFocus() {
+			if(across==false){
+				across=true;
+			}
+			var clueNumber = parseInt(this.id.substring(5));
+			var clueSpaces = acrossDict[clueNumber];
+			document.getElementById("T"+clueSpaces[0]).focus();
+		}
+		acrossSection.append(button);
+	}
+	acrossSection.style.height='471px';
+	acrossSection.style.overflow='auto';
+	var downSection = document.getElementById("downList");
+	for (var key in downClueDict){
+		var clue = downClueDict[key];
+		var button = document.createElement("button");
+		button.id = 'dclue'+key;
+		button.innerHTML = key + ". " + clue;
+		button.className = "clueButton";
+		button.onclick = function clueFocus() {
+			if(across==true){
+				across=false;
+			}
+			var clueNumber = parseInt(this.id.substring(5));
+			var clueSpaces = downDict[clueNumber];
+			document.getElementById("T"+clueSpaces[0]).focus();
+		}
+		downSection.append(button);
+	}
+	downSection.style.height='471px';
+	downSection.style.overflow='auto';
+}
+
+document.onkeydown = checkKey;
+function checkKey(e) {
+    e = e || window.event;
+    if (e.keyCode == '38') {
+	   	moveUp(document.activeElement);
+    }
+    else if (e.keyCode == '40') {
+    	moveDown(document.activeElement);
+    }
+    else if (e.keyCode == '37') {
+    	moveLeft(document.activeElement);
+    }
+    else if (e.keyCode == '39') {
+    	moveRight(document.activeElement);
+    }
+    else if (e.keyCode == '13' || e.keyCode == '9') {
+    	if(document.activeElement.className=='textChar'){
+	    	e.preventDefault();
+    		e.stopPropagation();
+	    	if (across==true){across=false;}
+	    	else {across=true;}
+	    	spot = document.activeElement;
+	    	spot.blur();
+	    	spot.focus();
+    	}
+    }
+    else if (e.keyCode == '8') {
+    	if(document.activeElement.className=='textChar'){
+	    	e.preventDefault();
+	    	document.activeElement.value='';
+	    	if (across==true){
+	    		moveLeft(document.activeElement);
+	    	}
+	    	else{
+	    		moveUp(document.activeElement);
+	    	}
+	    }
+    }
+}
+
+function moveLeft(ele){
+	var index = parseInt(ele.id.substring(1));
+   	newIndex = index-1;
+   	if(newIndex>=0 && $("#T"+newIndex).length!=0 && newIndex%size!=size-1){
+	   	document.getElementById("T"+newIndex).focus();
+	}
+}
+function moveRight(ele){
+	var index = parseInt(ele.id.substring(1));
+   	newIndex = index+1;
+   	if(newIndex<=size*size-1 && $("#T"+newIndex).length!=0 && newIndex%size!=0){
+	   	document.getElementById("T"+newIndex).focus();
+	}
+}
+function moveUp(ele){
+	var index = parseInt(ele.id.substring(1));
+   	newIndex = index-size;
+   	if(newIndex>=0 && $("#T"+newIndex).length!=0){
+	   	document.getElementById("T"+newIndex).focus();
+	}
+}
+function moveDown(ele){
+	var index = parseInt(ele.id.substring(1));
+   	newIndex = index+size;
+   	if(newIndex<=size*size-1 && $("#T"+newIndex).length!=0){
+	   	document.getElementById("T"+newIndex).focus();
+	}
+}
+
+function checkEdit(value){
+	index = parseInt(currentFocus.id.substring(1));
+	if (across==true){
+		clueNumber = inverseAcrossDict[index];
+		acrossClueDict[clueNumber] = value;
+		document.getElementById("aclue"+clueNumber).innerHTML = clueNumber + ". " + value;
+		$('#solutions').empty();
+	}
+	if (across==false){
+		clueNumber = inverseDownDict[index];
+		downClueDict[clueNumber] = value;
+		document.getElementById("dclue"+clueNumber).innerHTML = clueNumber + ". " + value;
+		$('#solutions').empty();
+	}
+}
+
+function getAnswers(){
+	$('#solutions').empty();
+	currentFocus.focus();
+	index = parseInt(currentFocus.id.substring(1));
+	if (across==true){
+		console.log(acrossDict[inverseAcrossDict[index]].length);
+	}
+	if (across==false){
+		console.log(downDict[inverseDownDict[index]].length);
+	}
+	for (i=0; i<exampleOneAcrossSolutions.length; i++){
+		//document.getElementById("solutions").innerHTML += exampleOneAcrossSolutions[i];
+		var button = document.createElement("button");
+		button.id = 'clueAnswer'+i;
+		button.innerHTML = exampleOneAcrossSolutions[i];
+		button.className = "clueAnswers";
+		button.onclick = function clueFocus() {
+			var clueNumber = parseInt(currentFocus.id.substring(1));
+			if (across==true){
+				var clueSpaces = acrossDict[inverseAcrossDict[clueNumber]];
+			}
+			else{
+				var clueSpaces = downDict[inverseDownDict[clueNumber]];
+			}
+			word = this.innerHTML;
+			for (i=0; i<clueSpaces.length; i++){
+				document.getElementById("T"+clueSpaces[i]).value = word[i];
+			}
+			document.getElementById("T"+clueSpaces[clueSpaces.length-1]).focus();
+		}
+		document.getElementById("solutions").append(button);
+	}
+}

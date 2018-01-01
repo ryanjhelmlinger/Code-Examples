@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Crossword Solver</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='styleCrossword.css') }}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="{{url_for('static', filename='finalCrossword.js')}}"></script>
+</head>
+
+<body onload="createCrossword();">
+	<div id="overallDiv">
+		<div id="gridDiv"></div>
+		<div id="acrossDiv">
+			<div class="clueHeaderContainer">
+				<p class="clueHeader">ACROSS</p>
+			</div>
+			<div class="clueList" id="acrossList"></div>
+		</div>
+		<div id="downDiv">
+			<p class="clueHeader">DOWN</p>
+			<div class="clueList" id="downList"></div>
+		</div>
+	</div>
+	<br>
+	<br>
+	<div id="clueSolver">
+		<input id="clueEditor" type="text" oninput="checkEdit(this.value)"/>
+		<button id="getClues" onclick="getAnswers()">Get Possible Answers</button>
+		<div id="solutions"></div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Crossword Solver</title>
+		<style>
+			#test{
+				background-color: blue;
+			}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+		<script type="text/javascript" src="grid.js"></script>
+	</head>
+<body>
+	<form action="/signup" accept="image/gif,image/jpeg,image/png" method="post">
+		Clue: <input type="text" name="clue"></input><br><br>
+		Length: <input type="text" name="length"></input><br><br>
+		Image: <input type="file" name="pic" id="pic"><br><br>
+		<input type="submit" value="Get Solutions"></input>
+	</form>
+	<h3 class="test">{{answers}}</h3>
+</body>
+</html>;

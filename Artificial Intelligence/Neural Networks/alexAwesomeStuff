@@ -1,4 +1,0 @@
-print("hi im alex. im the best!")
-
-probDict={1:0, 0:1}
-def hillClimbing()

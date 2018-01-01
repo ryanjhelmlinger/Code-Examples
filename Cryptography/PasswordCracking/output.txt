@@ -1,0 +1,22 @@
+--------------------------------------------------
+PART ONE
+Testing Hill Codes
+'Don't Mine at Night!' encodes as 'RFOE F!EMGZQ FBRMDTO'
+  using encryption matrix
+[4   19]
+[      ]
+[13  10]
+And RFOE F!EMGZQ FBRMDTO decrypts to DON'T MINE AT NIGHT!
+--------------------------------------------------
+Cracking a code using crib text
+ciphertext !NITFOITTFW!ITFULBAY is USE THE FORCE LUKE!X
+--------------------------------------------------
+PART TWO
+Plaintext: I hope that this 1 message will be encoded correctly.
+Encryption Matrix:
+[19  35]
+[      ]
+[20  1 ]
+Encryption: DHPCHAA T1W .HW1RGV5WWAS1K4CFTW4HYHWN94R4HNUZ6HCTVXQHV
+Decrytion: I HOPE THAT THIS 1 MESSAGE WILL BE ENCODED CORRECTLY.X
+--------------------------------------------------

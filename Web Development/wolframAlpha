@@ -1,0 +1,49 @@
+<html>
+<head>
+	<title>Get the Weather!</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#clickMe").click(function(){
+				$("#pods").append("<ul></ul>");
+				var ret = document.getElementById("output");
+				$.ajax({
+					type: "GET",
+					url: "http://cors.io/?u=http://api.wolframalpha.com/v2/query?input=pi&appid=RG5KTT-GLAVYAXRG8&assumption=*C.pi-_*Movie-",
+					dataType: "xml",
+					success: function(xml){
+						$(xml).find('queryresult').each(function(){
+				            var title = $(this).find('numsubpods').text();
+				            //var scanner = $(this).find('scanner').text();
+				            //var success = $(this).find('pod').text();
+			            	ret.innerHTML = "It's here! " + title + " hi<br>";
+			        	});
+						//$("<li></li>").html("hi" + "-" + "bye").appendTo("#pods ul");
+						//alert("here");
+					}
+					/*$(xml).find('queryresult').each(function(){
+						$(xml).find('pod').each(function(){
+							alert("here");
+							var Titles = $(this).find('title').text();
+							var Scanner = $(this).find('scanner').text();
+							var winLose = document.getElementById("output");
+							winLose.innerHTML = "You Won!"+Titles+"<br>";
+							#$("<li></li>").html(Titles + "-" + Scanner).appendTo("#pods ul");
+							alert("here");
+						});
+					});*/
+					/*error: function(){
+						alert("The XML File non-processed.");
+					}*/
+				})
+			});
+		});
+	</script>
+</head>
+<body>
+	<input id="long">
+	<input id="lat">
+	<div id="output"></div>
+	<button id="clickMe">Submit</button>
+</body>
+</html>

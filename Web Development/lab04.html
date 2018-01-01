@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Scrabble</title>
+	<script>
+
+		function determine(){
+			var letter = document.getElementById("letters").value;
+			letter = letter.toLowerCase();
+			var xmlhttp = new XMLHttpRequest();
+			document.getElementById("answers").innerHTML = xmlhttp.response
+			xmlhttp.open("GET", "getOptions.php?q=" + letter, true);
+        	xmlhttp.send();
+		}
+
+	</script>
+</head>
+
+<body>
+	<h3>Enter the letter below:</h3>
+	<input type="text" id="letters" placeholder="A" oninput="determine()">
+	<h3 id="answers">-</h3>
+</body>
+</html>

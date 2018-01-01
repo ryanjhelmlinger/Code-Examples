@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Hockey Survey </title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<style type="text/css">
+		body{
+			border:solid 6px;
+			border-color: #D8BFD8;
+			padding-left: 10px;
+			border-radius: 15px;
+			background-color: #F0F8FF;
+			font-family: arial;
+		}
+		select{
+			background-color: #FFEFED;
+		}
+		input{
+			background-color: #FFEFED;
+		}
+		textArea{
+			background-color: #FFEFED;
+			border-radius: 5px;
+		}
+		button{
+			background-color: #80aaff;
+			border-radius: 10px;
+			font-size: "80";
+			vertical-align: center;
+			text-align: center;
+		}
+	</style>
+	<script>
+		function changeSizeS() {
+			document.getElementById("brand").size = 1;
+			document.getElementById("warr").size = 1;
+			document.getElementById("baue").size = 1;
+			document.getElementById("sher").size = 1;
+			document.getElementById("east").size = 1;
+			document.getElementById("reeb").size = 1;
+		}
+		function changeSizeB() {
+			document.getElementById("brand").size = 5;
+			document.getElementById("warr").size = 6;
+			document.getElementById("baue").size = 5;
+			document.getElementById("sher").size = 4;
+			document.getElementById("east").size = 3;
+			document.getElementById("reeb").size = 2;
+		}
+		function displayList(){
+			var option = document.getElementById('brand').value;
+			var mainList = document.getElementById('break');
+			var space = document.getElementById('break2');
+			var space2 = document.getElementById('break3');
+			var firstList = document.getElementById(option);
+			var comments = document.getElementById("comment");
+			document.getElementById("ifWarrior").style.visibility = 'hidden';
+			document.getElementById("ifBauer").style.visibility = 'hidden';
+			document.getElementById("ifSherwood").style.visibility = 'hidden';
+			document.getElementById("ifEaston").style.visibility = 'hidden';
+			document.getElementById("ifReebok").style.visibility = 'hidden';
+			document.getElementById(option).style.visibility = 'visible';
+			$(firstList).insertAfter(mainList);
+			//$(space).insertAfter(firstList);
+			//$(space2).insertAfter(space);
+			//$(comments).insertAfter(space2);
+		}
+		function zipReader(){
+			var stateName = '';
+		 	var cityName = '';
+
+			$(document).ready(function() {
+			    $("#zip").keyup(function() {
+			        var el = $(this);
+
+			        if (el.val().length === 5) {
+			            $.ajax({
+			                url: "http://zip.elevenbasetwo.com",
+			                cache: false,
+			                dataType: "json",
+			                type: "GET",
+			                data: "zip=" + el.val(),
+			                success: function(result, success) {
+			                    $("#city").val(result.city);
+			                    $("#state").val(result.state);
+			                }
+			            });
+			        }
+			    });
+			});
+			var cityN = document.getElementById('city');
+			var stateN = document.getElementById('state');
+			cityN.innerHTML = "City: " + $("#city");
+			stateN.innerHTML = "State: " + $("#state");
+		}
+	</script>
+</head>
+
+<body align="center">
+	<h1 align="center">Hockey Survey</h1>
+	<form id="intro" autocomplete"on" action="formSql.php" method="get">
+		<div id="name">
+			<h3> Enter your name: </h3>
+			<input type="text" id="nameText" name="name" placeholder="Billy Bob" autofocus>
+		</div>
+		<div id="email">
+			<h3> Enter your email: </h3>
+			<input type="text" id="emailText" name="email" placeholder="example@gmail.com" x-autocompletetype=”email”>
+		</div>
+		<div id="phoneNumber">
+			<h3> Enter your phone number: </h3>
+			<input type="text" id="phoneText" name="phone" placeholder="123-456-7890">
+		</div>
+		<div id="zipCode">
+			<h3> Enter your zip code: </h3>
+			<input type="text" id="zipText" name="zip" placeholder="12345">
+		</div>
+		<div>
+			<h3 id="city">City:</h3>
+			<input type="text" id="cityText" name="city" placeholder="Pittsburgh">
+		</div>
+		<div>
+			<h3 id="state">State:</h3>
+			<input type="text" id="stateText" name="state" placeholder="Minnesota">
+		</div>
+		<div id="birthday">
+			<h3> Enter your birthday: </h3>
+			<input type="date" id="bday">
+		</div>
+		<div id="stick" onchange="displayList()">
+			<h3> What type of hockey stick do you use? </h3>
+			<!--form-->
+  				<input type="radio" value="drop" onclick="changeSizeS()" checked="yes"> Drop<br>
+  				<input type="radio" value="full" onclick="changeSizeB()"> Full<br>
+			<!--/form-->
+			<select id="brand" name="brand">
+				<option value="ifWarrior">Warrior</option>
+			  	<option value="ifBauer">Bauer</option>
+			  	<option value="ifSherwood">Sherwood</option>
+			  	<option value="ifEaston">Easton</option>
+			  	<option value="ifReebok">Reebok</option>
+			</select>
+			<p id="break"></p>
+			<div id="ifWarrior">
+				<select id="warr" name="stick">
+					<option value="Dynasty">Dynasty</option>
+				  	<option value="Covert">Covert</option>
+				  	<option value="Widow">Widow</option>
+				  	<option value="Hitman">Hitman</option>
+				  	<option value="Savage">Savage</option>
+				  	<option value="Diablo">Diablo</option>
+				</select>
+			</div>
+			<div id="ifBauer"  style="visibility: hidden" >
+				<select id="baue">
+					<option value="APX2">APX2</option>
+				  	<option value="CCM Tacks">CCM Tacks</option>
+				  	<option value="Vapor">Vapor</option>
+				  	<option value="Nexus">Nexus</option>
+				  	<option value="Supreme">Supreme</option>
+			  	</select>
+			</div>
+			<div id="ifSherwood"  style="visibility: hidden" >
+				<select id="sher">
+					<option value="ABS Wood">ABS Wood</option>
+				  	<option value="Mylec">Mylec</option>
+				  	<option value="Heat 252">Heat 252</option>
+				  	<option value="i300">i300</option>
+			  	</select>
+			</div>
+			<div id="ifEaston" style="visibility: hidden" >
+				<select id="east">
+					<option value="Stealth">Stealth</option>
+				  	<option value="Synergy">Synergy</option>
+				  	<option value="Precision">Precision</option>
+			  	</select>
+			</div>
+			<div id="ifReebok" style="visibility: hidden" >
+				<select id="reeb">
+					<option value="RibCor">RibCor</option>
+				  	<option value="Ai9 95">Ai9 95</option>
+			  	</select>
+			</div>
+		</div>
+		<p id="break2"></p>
+		<p id="break3"></p>
+		<textarea id="comment" rows="4" cols="50" placeholder="Enter text here..."]></textarea>
+		<br>
+		<input type="submit" value="Submit" style="height:80px;width:160px;font-size:25px">
+	</form>
+</body>
+</html>

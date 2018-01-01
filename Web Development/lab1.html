@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NHL teams (Metro Division)</title>
+
+	<script type="text/javascript">
+		//document.getElementById('num1').disabled = true;
+
+		var teams = ["penguins", "capitals", "islanders", "rangers", "flyers", "devils", "hurricanes", "blue jackets"];
+		var total = 8;
+		var started = false;
+		function addFunction(){
+			if (started == false) {
+				//countdown();
+				//timedCount();
+				started = true;
+			}
+			var n1 = document.getElementById('num1').value;
+			var team = "" + n1;
+			team = team.toLowerCase();
+			//console.log(team);
+			var divTag2 = document.getElementById("output2");
+			var winLose = document.getElementById("outputResult");
+			for	(index = 0; index < teams.length; index++) {
+    			if (team == teams[index])
+    			{
+    				divTag2.innerHTML += team+"<br>";
+    				teams.splice(index, 1);
+    				document.getElementById("num1").value = "";
+    				//divTag2.reset();
+    			}
+			}
+			if (teams.length == 0)
+			{
+				winLose.style.color = "green";
+				winLose.innerHTML = "You Won!"+"<br>";
+				pause();
+				//var counter = document.getElementById("outputTime");
+				//counter.innerHTML = ""+"<br>";
+			}
+
+			var score = total - teams.length;
+			var outOf = score + "/" + total;
+			var divTag = document.getElementById("output")
+			divTag.innerHTML = outOf;
+		}
+
+		var c=60;
+		var t;
+		var timer_is_on=0;
+
+
+		function timedCount()
+		{
+			if(c%60<10) {
+				document.getElementById('outputTime').innerHTML = Math.floor(c/60) + ":0" + (c%60)
+			}
+			else {
+				document.getElementById('outputTime').innerHTML = Math.floor(c/60) + ":" + (c%60)
+			}
+			if(c==0){
+				clearTimeout(t);
+				timer_is_on=0;
+				var divTag2 = document.getElementById("output3");
+				divTag2.innerHTML += "<br>";
+            	divTag2.style.color = "red";
+            	for	(index = 0; index < teams.length; index++){
+            		divTag2.innerHTML += teams[index]+"<br>";
+            	}
+            	winLose.style.color = "red";
+            	winLose.innerHTML = "You Lost!"+"<br>";
+				document.getElementById('num1').disabled = true;
+				document.getElementById('num1').value = "";
+				document.getElementById('num1').style.backgroundColor = "#d3d3d3";
+			}
+			else{
+				c=c-1;
+				t=setTimeout("timedCount()",1000);
+			}
+		}
+
+		function resume()
+		{
+			document.getElementById('num1').disabled = false;
+			document.getElementById("pause").style.display = "inline";
+			document.getElementById("resume").style.display = "none";
+			if (!timer_is_on)
+			{
+				timer_is_on=1;
+				timedCount();
+			}
+		} 
+		function pause()
+		{
+			document.getElementById('num1').disabled = true;
+			document.getElementById("resume").style.display = "inline";
+			document.getElementById("pause").style.display = "none";
+			clearTimeout(t);
+			timer_is_on=0;
+		}
+
+		/*function countdown() {
+    		var seconds = 60;
+    		function tick() {
+        		var counter = document.getElementById("outputTime");
+        		seconds--;
+        		counter.innerHTML = ("0:" + (seconds < 10 ? "0" : "") + String(seconds));
+        		if( seconds > 0 ) {
+        			if (teams.length != 0){
+            			setTimeout(tick, 1000);
+            		}
+        		} else {
+            		if (teams.length != 0){
+            			divTag2.innerHTML += "<br>";
+            			divTag2.style.color = "red";
+            			for	(index = 0; index < teams.length; index++){
+            				divTag2.innerHTML += teams[index]+"<br>";
+            			}
+            			winLose.style.color = "red";
+            			winLose.innerHTML = "You Lost!"+"<br>";
+            		}
+        		}
+   			}
+    		tick();
+		}*/
+
+			//var n2 = document.getElementById('num2').value;
+			//var val = 5*parseInt(n1);
+			//var divTag = document.getElementById("output")
+			//var divTag2 = document.getElementById("output2")
+			//for	(index = 0; index < correct.length; index++) {
+    		//	divTag2.innerHTML = correct[index];
+    		//}
+			//divTag.innerHTML = val;
+			//divTag2.innerHTML = correct;
+		//}
+	</script>
+</head>
+<body bgcolor="#99CCFF">
+	<!--input type="text" id="num1"-->
+	<h1> Enter all NHL teams from the Metropolitan Division </h1>
+	<input type="text" id="num1" oninput="addFunction()" disabled = true>
+	<!--button onclick="addFunction()">Add</buttton-->
+	<h1 id="outputResult"></h1>
+	<h2 id="outputTime">1:00</h2>
+	<h3 id="output">0/8</h3>
+	<div id="output2"></div>
+	<div id="output3"></div>
+	<button id="pause" onclick = "pause()" style="display: none;" >Pause</button>
+	<button id="resume" onclick = "resume()" >Start</button>
+</body>
+</html>

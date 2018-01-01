@@ -1,0 +1,339 @@
+<html>
+<head>
+	<title>Get the Weather!</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <style type="text/css">
+        body {
+            background: #ccc;
+            text-align: center;
+        }
+        #sun {
+            position: absolute;
+            color: yellow;
+            background: orange;
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            left: 50%;
+            margin-left: -50px;
+            width: 200px;
+            height: 200px;
+            border-style: solid;
+            border-width: 5px;
+            border-color: yellow;
+        } 
+        #cloud {
+            width: 350px; height: 120px;
+            
+            background: #f2f9fe;
+            background: linear-gradient(top, #f2f9fe 5%, #d6f0fd 100%);
+            background: -webkit-linear-gradient(top, #f2f9fe 5%, #d6f0fd 100%);
+            background: -moz-linear-gradient(top, #f2f9fe 5%, #d6f0fd 100%);
+            background: -ms-linear-gradient(top, #f2f9fe 5%, #d6f0fd 100%);
+            background: -o-linear-gradient(top, #f2f9fe 5%, #d6f0fd 100%);
+            
+            border-radius: 100px;
+            -webkit-border-radius: 100px;
+            -moz-border-radius: 100px;
+            
+            position: relative;
+            margin: 120px auto 20px;
+        }
+
+        #cloud:after, #cloud:before {
+            content: '';
+            position: absolute;
+            background: #f2f9fe;
+            z-index: -1
+        }
+
+        #cloud:after {
+            width: 100px; height: 100px;
+            top: -50px; left: 50px;
+            
+            border-radius: 100px;
+            -webkit-border-radius: 100px;
+            -moz-border-radius: 100px;
+        }
+
+        #cloud:before {
+            width: 180px; height: 180px;
+            top: -90px; right: 50px;
+            
+            border-radius: 200px;
+            -webkit-border-radius: 200px;
+            -moz-border-radius: 200px;
+        }
+
+        .shadow {
+            width: 350px;
+            position: absolute; bottom: -10px; 
+            background: #000;
+            z-index: -1;
+            
+            box-shadow: 0 0 25px 8px rgba(0, 0, 0, 0.4);
+            -moz-box-shadow: 0 0 25px 8px rgba(0, 0, 0, 0.4);
+            -webkit-box-shadow: 0 0 25px 8px rgba(0, 0, 0, 0.4);
+            
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+        }
+        .thermometer {
+            margin:50% 0 0 50%;
+            left:-15px;
+            top:+50px;
+            width:22px;
+            height:150px;
+            display:block;
+            font:bold 14px/152px helvetica, arial, sans-serif;
+            text-indent: 36px;
+            background: -webkit-linear-gradient(top, #fff 0%, #fff 50%, #db3f02 50%, #db3f02 100%);
+            border-radius:22px 22px 0 0;
+            border:5px solid #4a1c03;
+            border-bottom:none;
+            position:absolute;
+            box-shadow:inset 0 0 0 4px #fff;
+            color:#4a1c03;
+        }
+        /* Thermometer Bulb */
+         .thermometer:before {
+            content:' ';
+            width:44px;
+            height:44px;
+            display:block;
+            position:absolute;
+            top:142px;
+            left:-16px;
+            z-index:-1;
+            /* Place the bulb under the column */
+            background:#db3f02;
+            border-radius:44px;
+            border:5px solid #4a1c03;
+            box-shadow:inset 0 0 0 4px #fff;
+        }
+        /* This piece here connects the column with the bulb */
+         .thermometer:after {
+            content:' ';
+            width:14px;
+            height:7px;
+            display:block;
+            position:absolute;
+            top:146px;
+            left:4px;
+            background:#db3f02;
+        }
+    </style>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#clickMe").click(function(){
+				var ret = document.getElementById("output");
+				var wArr = document.getElementById("windArrow");
+                var wSpeed = document.getElementById("windSpeed");
+                var tempTherm = document.getElementById("thermo");
+
+				var longitude = $("#long").val();
+				//var latitude = $("#lat").val();
+				$.ajax({
+					url:"http://api.openweathermap.org/data/2.5/weather",
+					data:{
+						zip:longitude,
+						//lat:latitude,
+						appid:"3eaa9aeb8314b123e57b1dd6bd383c00"
+					},
+					success:function(data){
+						console.log(data);
+						var json_x = data;
+						city = json_x['name'];
+						//main = json_x['main']
+						//cld = json_x['clouds']
+
+    					var json_main = json_x['main'];
+    					temp = json_main['temp'];
+    					hum = json_main['humidity'];
+
+    					var json_clouds = json_x['clouds'];
+    					clouds = json_clouds['all'];
+
+    					var json_weather = json_x['weather'];
+    					var json_weatherObj = json_weather['Object'];
+    					//weather = json_weatherObj['description'];
+
+    					var json_wind = json_x['wind'];
+    					deg = json_wind['deg'];
+    					speed = json_wind['speed'];
+
+    					if (speed<7.5){
+    						wArr.style.color = "green";
+                            wSpeed.style.color = "green";
+    					}
+    					else if (speed>=7.5&&speed<15){
+    						wArr.style.color = "yellow";
+                            wSpeed.style.color = "yellow";
+    					}
+    					else{
+    						wArr.style.color = "red";
+                            wSpeed.style.color = "red";
+    					}
+
+    					direction = "-"
+    					if (deg>22.5 && deg<=67.5) {
+    						direction = "NE";
+    						wArr.innerHTML = '&#x2197;<br>';
+    					}
+    					if (deg>337.5 || deg<=22.5) {
+    						direction = "E";
+    						wArr.innerHTML = '&rarr;<br>';
+    					}
+    					if (deg>67.5 && deg<=112.5) {
+    						direction = "N";
+    						wArr.innerHTML = '&uarr;<br>';
+    					}
+    					if (deg>112.5 && deg<=157.5) {
+    						direction = "NW";
+    						wArr.innerHTML = '&nwarr;<br>';
+    					}
+    					if (deg>157.5 && deg<=202.5) {
+    						direction = "W";
+    						wArr.innerHTML = '&larr;<br>';
+    					}
+    					if (deg>202.5 && deg<=247.5) {
+    						direction = "SW";
+    						wArr.innerHTML = '&swarr;<br>';
+    					}
+    					if (deg>247.5 && deg<=292.5) {
+    						direction = "S";
+    						wArr.innerHTML = '&darr;<br>';
+    					}
+    					if (deg>292.5 && deg<=337.5) {
+    						direction = "SE";
+    						wArr.innerHTML = '&searr;<br>';
+    					}
+
+                        wSpeed.innerHTML = speed + "mph";
+
+
+    					temp = Math.round((1.8*(temp-273.15)+32)*100)/100
+
+
+                        tempTherm.innerHTML = temp + '&deg;F';
+
+
+    					if (temp<=40){
+    						document.body.style.backgroundColor = "#ccebff";
+    					}
+    					else if (temp>40 && temp<=55){
+    						document.body.style.backgroundColor = "#ccffcc";
+    					}
+    					else if (temp>55 && temp<=70){
+    						document.body.style.backgroundColor = "#ffffb3";
+    					}
+    					else if (temp>70 && temp<=85){
+    						document.body.style.backgroundColor = "#ff944d";
+    					}
+    					else{
+    						document.body.style.backgroundColor = "#ff0000";
+    					}
+
+                        if (clouds>70){
+                            var element =  document.getElementById('cloud');
+                            if (typeof(element) != 'undefined' && element != null)
+                            {
+                                var element =  document.getElementById('sun');
+                                if (typeof(element) != 'undefined' && element != null)
+                                {
+                                    element.parentNode.removeChild(element);
+                                }
+                            }
+                            else{
+                                var element =  document.getElementById('sun');
+                                if (typeof(element) != 'undefined' && element != null)
+                                {
+                                    element.parentNode.removeChild(element);
+                                }
+                                var iDiv = document.createElement('div');
+                                iDiv.id = 'cloud';
+                                var span = document.createElement('span');
+                                span.className = 'shadow';
+                                iDiv.appendChild(span);
+                                document.getElementsByTagName('body')[0].appendChild(iDiv);   
+                            }
+ 
+                        }
+                        else{
+                            var element =  document.getElementById('sun');
+                            if (typeof(element) != 'undefined' && element != null)
+                            {
+                                var element =  document.getElementById('cloud');
+                                if (typeof(element) != 'undefined' && element != null)
+                                {
+                                    element.parentNode.removeChild(element);
+                                }
+                            }
+                            else{
+                                var element =  document.getElementById('cloud');
+                                if (typeof(element) != 'undefined' && element != null)
+                                {
+                                    element.parentNode.removeChild(element);
+                                }
+
+                                var iDiv = document.createElement('div');
+                                iDiv.id = 'sun';
+                                document.getElementsByTagName('body')[0].appendChild(iDiv);  
+                            }
+                        }
+                        /*else{
+                            var element =  document.getElementById('sun');
+                            if (typeof(element) != 'undefined' && element != null)
+                            {
+                            }
+                            else{
+                                var iDiv = document.createElement('div');
+                                iDiv.id = 'sun';
+                                document.getElementsByTagName('body')[0].appendChild(iDiv);
+                            }
+                            var element =  document.getElementById('cloud');
+                            if (typeof(element) != 'undefined' && element != null)
+                            {
+                            }
+                            else{
+                                var iDiv = document.createElement('div');
+                                iDiv.id = 'cloud';
+                                var span = document.createElement('span');
+                                span.className = 'shadow';
+                                iDiv.appendChild(span);
+                                document.getElementsByTagName('body')[0].appendChild(iDiv);  
+                            }
+                        }*/
+                        
+
+                        //var dateSpan = document.createElement('span')
+                        //dateSpan.innerHTML = dateString;
+                        //var li = document.createElement('li');
+                        //li.appendChild(dateSpan);  
+
+
+    					ret.innerHTML = "City: " + city + "<br>";
+    					ret.innerHTML += "Temperate: " + temp + "<br>";
+    					ret.innerHTML += "Humidity: " + hum + "%<br>";
+    					ret.innerHTML += "Cloud Cover: " + clouds + "%<br>";
+    					//ret.innerHTML += "Type of weather: " + weather + "<br>";
+    					ret.innerHTML += "Wind speed: " + speed + "mph at " + deg + "<br>";
+    					ret.innerHTML += "Direction: " + direction + "<br>";
+
+
+					}
+				})
+			});
+		});
+	</script>
+</head>
+<body>
+    <h1>Zip Code:<input id="long"><button id="clickMe">Submit</button></h1>
+    <!--div id = "cloud"><span class='shadow'></span></div-->
+    <!--div id = "sun"></div-->
+    <span id="windArrow" style="color: #000000; font-size: 10em;"></span><span id="windSpeed" style="color: #000000; font-size: 2em;"></span>
+    <span id="thermo" class="thermometer"></span>
+	<div id="output"></div>
+</body>
+</html>

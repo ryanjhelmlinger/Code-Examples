@@ -1,0 +1,21 @@
+body{
+	background: black;
+	font-size: 10;
+	color: orange;
+	border: 5px solid gray;
+	margin-right: 1450px;
+}
+a {
+    color: red;
+    font-size: 15;
+}
+h1{
+	color: purple;
+	background: gray;
+	text-align: center;
+}
+h2{
+	color: green;
+	background: gray;
+	text-align: center;
+}

@@ -1,0 +1,113 @@
+<html>
+<head>
+	<title>Dom Tree Practice</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+	<style type="text/css">
+		div{
+			border:solid 1xp;
+			background-color: green;
+			padding: 3px;
+			margin: 30px;
+		}
+		.backrow{
+			background-color: purple;
+		}
+		.back{
+			background-color: gray;
+		}
+		.otherBack{
+			background-color: black;
+		}
+		.backNext{
+			background-color: blue;
+		}
+		.meat{
+			background-color: orange;
+		}
+	</style>
+	<script type="text/javascript">
+		function makeRed(event){
+			console.log(event.target);
+			event.target.style.backgroundColor="FF0000";
+		}
+		function makeBlue(event){
+			console.log(event.target);
+			event.target.style.backgroundColor="0000FF";
+		}
+		function makeOrange(event){
+			console.log(event.target);
+			event.target.style.backgroundColor="FFAAAA";
+		}
+
+		function colorUpcoming(event){
+			var aim = event.target;
+			var before = aim.style.backgroundColor;
+			var bool = true;
+			var soon = event.target;
+			if(soon.firstElementChild!=null){ soon = soon.firstElementChild; }
+			else if(soon.nextElementSibling!=null){ soon = soon.nextElementSibling; }
+			else
+			{
+				while(true){
+					if(soon.parentElement==null){ break; }
+					soon=soon.parentElement;
+					if(soon.parentElement.nextElementSibling!=null){ soon=soon.parentElement.nextElementSibling; }
+					if(soon!=null){ break; }
+				}
+			}
+			soon.style.backgroundColor='red';
+			if(bool){
+				bool=false;
+				window.setTimeout(function(){soon.style.backgroundColor=before;bool=true;},500);
+			}
+		}
+
+
+
+	</script>
+</head>
+<body onclick="colorUpcoming(event)">
+	<div class = "back">
+		<div class = "otherBack">
+			<div class = "backNext">
+				<div class = "backrow">
+					Breakfast Time! <span style="color:blue">YUMMY!!!</span>!!!<span style="color:blue">!!!</span>
+					<div>
+						Eggs
+						<ul>
+			  				<li>Over-easy</li>
+			  				<li>Scramble</li>
+			  				<li>Poached</li>
+						</ul>
+					</div>
+
+					<div>Bacon</div>
+					<div>Sausage</div>
+					<div>Cereal</div>
+					<div>Toast</div>
+					<div>Bagel</div>
+					<div>Pancakes</div>
+				</div>
+			</div>
+			<p align="center" style="color:pink"> WE SKIPPED LUNCH JUST FOR FUN </p>
+			<div class = "meat">
+				<h3 align="center">Dinner Time!!!</h3>
+				<div>
+					Steak
+					<ul>
+		  				<li>Rare</li>
+		  				<li>Medium-rare</li>
+		  				<li>Medum</li>
+					</ul>
+				</div>
+				<div>Chicken</div>
+				<div>Pork</div>
+				<div>Veal</div>
+				<div>Alligator</div>
+				<div>Fish</div>
+				<div>Lamb</div>
+			</div>
+		</div>
+		<h1> ALL DONE WITH THE FUN!!! </h1>
+</body>
+</html>

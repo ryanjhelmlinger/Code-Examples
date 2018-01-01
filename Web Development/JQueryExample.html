@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title> JQuery Example </title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script type+"text/javascript">
+			$(document).ready(function(){
+				$("div").css({"border":"blue 1px solid"}).each(function(){
+					$(this).html("div tag:"+$(this).attr("id"))
+				})
+
+				$("div").click(function(){
+					$(this).fadeOut();
+				})
+			})
+	</script>
+</head>
+
+<body>
+	<div id="a"> </div>
+	<div id="b"> </div>
+	<div id="c"> </div>
+	<div id="d"> </div>
+	<div id="e"> </div>
+	<div id="f"> </div>
+</body>
+</html>

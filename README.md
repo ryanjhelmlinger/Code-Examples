@@ -4,7 +4,6 @@ While at the University of Virginia, I wrote a program that could make complex a
 
 From the University of Michigan, I created many classes for data structures. Then I used these various data structures to complete various interesting labs such as creating an image resizer to shrink and get rid of the least important part of pictures. Some of the data structures I created were vectors, doubly linked lists, stacks, queues, binary search trees, normal trees, heaps, hashes, sets, maps, and more. I also dealt with a lot of memory aspects of these programs. I used C++ for these labs.
 
-
 ## Artificial Intelligence:
 
 Agent Based Modeling – The sync.py and sync2.py files both use agent based modeling in order to make each separate object react to its surrounding until every object is synced up in the same pattern. The goodGraph.py and xNegCubed.py help to keep track of information and produce data for graphs to represent patterns. This information is displayed in final.pdf.
@@ -25,22 +24,17 @@ Sudoku – sudoku.py was my original code for solving sudoku puzzles and sudoku2
 
 US Connection – This folder is pretty much the same as the Romania Problem except it was with cities from the United States.
 
-
 ## Parallel Computing:
-	For parallel computing most of my code was on the school servers so I don’t have records of most of it. However, Gfire.c and CUDA.txy both have examples of me running code on several servers at once. There is also an example of a makefile I used and a tree class. The word document contains graphs of how much faster my code ran when expanded to more servers. The pdf file explains how I went about solving one of the problems using parallel computing. A couple other notable labs that I wasn’t able to save were programs that generated the Mandelbrot Set and the Game of Life while running on parallel servers.
-
+For parallel computing most of my code was on the school servers so I don’t have records of most of it. However, Gfire.c and CUDA.txy both have examples of me running code on several servers at once. There is also an example of a makefile I used and a tree class. The word document contains graphs of how much faster my code ran when expanded to more servers. The pdf file explains how I went about solving one of the problems using parallel computing. A couple other notable labs that I wasn’t able to save were programs that generated the Mandelbrot Set and the Game of Life while running on parallel servers.
 
 ## Web Development:
-	This file contains the code for the labs that I happened to save locally from my Web Development class. Lab 1 deals with creating an online quiz. Lab 2 loops through the DOM elements when certain parts of the screen are clicked on. Lab 3 was a form, and in a later lab (lab 5) php and mysql were used to store this information. Lab 4 dealt with regex and more data manipulation with words. Lab6/WeatherAPI read a json/xml file from an open weather API and displayed it to the user based on their location/zip code. There was also some basic d3 code examples as well for animating websites with well-displayed graphs.
-
+This file contains the code for the labs that I happened to save locally from my Web Development class. Lab 1 deals with creating an online quiz. Lab 2 loops through the DOM elements when certain parts of the screen are clicked on. Lab 3 was a form, and in a later lab (lab 5) php and mysql were used to store this information. Lab 4 dealt with regex and more data manipulation with words. Lab6/WeatherAPI read a json/xml file from an open weather API and displayed it to the user based on their location/zip code. There was also some basic d3 code examples as well for animating websites with well-displayed graphs.
 
 ## Computer Systems Senior Research Lab (SysLab):
-	This code was developed throughout my senior year in my computer science research lab. The two PowerPoints show the main overview of my project and the progress I had made a little over halfway through the year. The journal document kept track of my progress and some of my thoughts through April. The syslabPaper document has a more in depth explanation of my reasoning and thought process behind the project as well as how successful it ended up being. A lot of the other files in this folder show my original ideas and program starts as well as times when I debugged errors. The files inside the webConfig folder are my final files that worked completely. They are all inside this folder because this is where my code ran on a the server in order to allow the website and python files to communicate.
-
+This code was developed throughout my senior year in my computer science research lab. The two PowerPoints show the main overview of my project and the progress I had made a little over halfway through the year. The journal document kept track of my progress and some of my thoughts through April. The syslabPaper document has a more in depth explanation of my reasoning and thought process behind the project as well as how successful it ended up being. A lot of the other files in this folder show my original ideas and program starts as well as times when I debugged errors. The files inside the webConfig folder are my final files that worked completely. They are all inside this folder because this is where my code ran on a the server in order to allow the website and python files to communicate.
 
 ## Computer Vision:
-	Most of my files for this class remained on the school servers, however I still have a couple. Lab7.cpp contained my main code for the sieve algorithm. Point.h contained the point class that I used in the other file. The word doc contains graphs about the different version of my algorithms and their runtime including iteration, recursion, and the sieve algorithm.
-
+Most of my files for this class remained on the school servers, however I still have a couple. Lab7.cpp contained my main code for the sieve algorithm. Point.h contained the point class that I used in the other file. The word doc contains graphs about the different version of my algorithms and their runtime including iteration, recursion, and the sieve algorithm.
 
 ## Cryptography:
-	The titles of most of these files explain the type of cipher that they encode/decode. Each of the folders also contain files that contain code for classes or drivers that encode and decode different complicated ciphers. Some of them also contain word documents that explain my thinking and explanations for the code. While this code might not be the most difficult to write, it still shows my understanding of modular arithmetic and basic computer security skills.
+The titles of most of these files explain the type of cipher that they encode/decode. Each of the folders also contain files that contain code for classes or drivers that encode and decode different complicated ciphers. Some of them also contain word documents that explain my thinking and explanations for the code. While this code might not be the most difficult to write, it still shows my understanding of modular arithmetic and basic computer security skills.
